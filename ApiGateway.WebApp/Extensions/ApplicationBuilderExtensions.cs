@@ -66,4 +66,14 @@ public static class ApplicationBuilderExtensions
         app.UseMiddleware<AdvancedScopeAuthorizationMiddleware>();
         return app;
     }
+
+    public static IApplicationBuilder UseCorrelationId(this WebApplication app)
+    {
+        app.Use(async (context, next) =>
+        {
+            context.Request.Headers["X-Correlation-Id"] = Guid.NewGuid().ToString();
+            await next();
+        });
+        return app;
+    }
 }

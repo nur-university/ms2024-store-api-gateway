@@ -4,7 +4,7 @@ using ApiGateway.WebApp.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddServices(builder.Configuration);
+builder.Services.AddServices(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
@@ -23,6 +23,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAdvancedScopeAuthorization();
+
+app.UseCorrelationId();
 
 app.UseAuthorization();
 
